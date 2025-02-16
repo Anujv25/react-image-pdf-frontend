@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios'
-
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [loading, setLoading] = useState(false)
@@ -44,18 +44,15 @@ function App() {
         console.error("❌ Error uploading file:", error);
     }
 };
-if(loading){
+
   return (
     <>
-     <h2>Converting .....</h2>
-    </>
-  )
-}
-  return (
-    <>
-     <h2>Image to PDF Converter</h2>
+    <Analytics/>
+    { loading?<h2>Converting .....</h2> :<>
+      <h2>Image to PDF Converter</h2>
      <label htmlFor="image">Select image</label>
-      <input accept="image/png, image/jpeg" type="file" multiple  id="image" onChange={handleFile} name="image"/>
+      <input accept="image/png, image/jpeg" type="file" multiple  id="image" onChange={handleFile} name="image"/></>}
+    
     </>
   )
 }
