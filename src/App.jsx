@@ -2,32 +2,60 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [loading, setLoading] = useState(false)
 
+  const handleFile=(e)=>{
+    uploadFile(e.target.files)
+  }
+  const uploadFile = async (files) => {
+    setLoading(true)
+    const formData = new FormData();
+    // Append the file to the FormData
+    const keys=Object.keys(files)
+    keys.forEach((key)=>{
+      formData.append("images", files[key]);
+    })
+    
+    try {
+        const response = await axios.post("http://localhost:3000/api/upload", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            responseType: "blob", // Get binary response for PDF
+        });
+
+        // Create a download link for the PDF file
+        if(response.status===200){
+          setLoading(false)
+          const url = window.URL.createObjectURL(response.data);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "converted.pdf";
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        }
+       
+    } catch (error) {
+        console.error("❌ Error uploading file:", error);
+    }
+};
+if(loading){
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+     <h2>Converting .....</h2>
+    </>
+  )
+}
+  return (
+    <>
+     <h2>Image to PDF Converter</h2>
+     <label htmlFor="image">Select image</label>
+      <input accept="image/png, image/jpeg" type="file" multiple  id="image" onChange={handleFile} name="image"/>
     </>
   )
 }

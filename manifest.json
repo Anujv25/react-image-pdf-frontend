@@ -1,0 +1,17 @@
+{
+    "short_name": "Image2PDF",
+    "name": "Image2PDF",
+    "icons": [
+      {
+        "src": "./PDF-logo.png",
+        "sizes": "1024x1024 512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }
