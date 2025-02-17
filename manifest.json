@@ -1,15 +1,7 @@
 {
     "short_name": "Image2PDF",
     "name": "Image2PDF",
-    "icons": [
-      {
-        "src": "./public/vite.svg",
-        "sizes": "1024x1024 512x512",
-        "type": "image/png",
-        "purpose": "any maskable"
-
-      }
-    ],
+    "icons": [],
     "start_url": ".",
     "display": "standalone",
     "theme_color": "#000000",
