@@ -3,7 +3,7 @@
     "name": "Image2PDF",
     "icons": [
       {
-        "src": "./PDF-logo.png",
+        "src": "./public/vite.svg",
         "sizes": "1024x1024 512x512",
         "type": "image/png",
         "purpose": "any maskable"
